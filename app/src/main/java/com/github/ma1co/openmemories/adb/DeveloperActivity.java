@@ -74,61 +74,6 @@ public class DeveloperActivity extends ItemActivity {
 
         addLabel("Please disable Wifi before switching off the camera");
 
-        addSwitch("Enable Telnet", new SwitchItem.Adapter() {
-            private final String[] telnetStartCommand = new String[] { "busybox", "telnetd", "-l", "sh" };
-
-            private int getTelnetPid() {
-                return Procfs.findProcess(telnetStartCommand);
-            }
-
-            private void enableTelnet() throws NativeException {
-                Shell.exec(TextUtils.join(" ", telnetStartCommand));
-            }
-
-            private void disableTelnet() throws NativeException {
-                int pid = getTelnetPid();
-                if (pid != -1)
-                    Shell.exec("kill -HUP " + pid + " $(ps -o pid= --ppid " + pid + ")");
-            }
-
-            @Override
-            public boolean isAvailable() {
-                return true;
-            }
-
-            @Override
-            public boolean isEnabled() {
-                return getTelnetPid() != -1;
-            }
-
-            @Override
-            public void setEnabled(final boolean enabled) throws InterruptedException, NativeException, TimeoutException {
-                try {
-                    Logger.info("TelnetAdapter.setEnabled", "setting telnetd to " + enabled);
-                    if (enabled)
-                        enableTelnet();
-                    else
-                        disableTelnet();
-
-                    Condition.waitFor(new Condition.Runnable() {
-                        @Override
-                        public boolean run() {
-                            return isEnabled() == enabled;
-                        }
-                    }, 500, 2000);
-                    Logger.info("TelnetAdapter.setEnabled", "done");
-                } catch (InterruptedException | NativeException | TimeoutException e) {
-                    Logger.error("TelnetAdapter.setEnabled", e);
-                    throw e;
-                }
-            }
-
-            @Override
-            public String getSummary() {
-                return isEnabled() ? "telnetd running on port 23" : "telnetd stopped";
-            }
-        });
-
         addSwitch("Enable ADB", new SwitchItem.Adapter() {
             private String[] adbStartCommand = { getApplicationInfo().nativeLibraryDir + "/libadbd.so" };
 
@@ -181,6 +126,61 @@ public class DeveloperActivity extends ItemActivity {
             @Override
             public String getSummary() {
                 return isEnabled() ? "adbd running on port 5555" : "adbd stopped";
+            }
+        });
+
+        addSwitch("Enable Telnet", new SwitchItem.Adapter() {
+            private final String[] telnetStartCommand = new String[] { "busybox", "telnetd", "-l", "sh" };
+
+            private int getTelnetPid() {
+                return Procfs.findProcess(telnetStartCommand);
+            }
+
+            private void enableTelnet() throws NativeException {
+                Shell.exec(TextUtils.join(" ", telnetStartCommand));
+            }
+
+            private void disableTelnet() throws NativeException {
+                int pid = getTelnetPid();
+                if (pid != -1)
+                    Shell.exec("kill -HUP " + pid + " $(ps -o pid= --ppid " + pid + ")");
+            }
+
+            @Override
+            public boolean isAvailable() {
+                return true;
+            }
+
+            @Override
+            public boolean isEnabled() {
+                return getTelnetPid() != -1;
+            }
+
+            @Override
+            public void setEnabled(final boolean enabled) throws InterruptedException, NativeException, TimeoutException {
+                try {
+                    Logger.info("TelnetAdapter.setEnabled", "setting telnetd to " + enabled);
+                    if (enabled)
+                        enableTelnet();
+                    else
+                        disableTelnet();
+
+                    Condition.waitFor(new Condition.Runnable() {
+                        @Override
+                        public boolean run() {
+                            return isEnabled() == enabled;
+                        }
+                    }, 500, 2000);
+                    Logger.info("TelnetAdapter.setEnabled", "done");
+                } catch (InterruptedException | NativeException | TimeoutException e) {
+                    Logger.error("TelnetAdapter.setEnabled", e);
+                    throw e;
+                }
+            }
+
+            @Override
+            public String getSummary() {
+                return isEnabled() ? "telnetd running on port 23" : "telnetd stopped";
             }
         });
 
