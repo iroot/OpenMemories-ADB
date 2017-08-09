@@ -1,4 +1,4 @@
-package com.github.ma1co.openmemories.tweak;
+package com.github.ma1co.openmemories.adb;
 
 public class BackupInfoAdapter<T> implements ItemActivity.InfoItem.Adapter {
     private final BackupProperty<T> property;

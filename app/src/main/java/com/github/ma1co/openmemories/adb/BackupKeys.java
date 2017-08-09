@@ -1,4 +1,4 @@
-package com.github.ma1co.openmemories.tweak;
+package com.github.ma1co.openmemories.adb;
 
 public class BackupKeys {
     public static final BackupProperty.Byte REC_LIMIT_H = new BackupProperty.Byte(0x003c0373);

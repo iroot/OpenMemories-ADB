@@ -1,4 +1,4 @@
-package com.github.ma1co.openmemories.tweak;
+package com.github.ma1co.openmemories.adb;
 
 import android.app.AlertDialog;
 import android.content.Context;

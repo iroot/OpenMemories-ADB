@@ -1,4 +1,4 @@
-package com.github.ma1co.openmemories.tweak;
+package com.github.ma1co.openmemories.adb;
 
 public abstract class BackupSwitchAdapter<T> implements ItemActivity.SwitchItem.Adapter {
     public static class ConstantImpl<T> extends BackupSwitchAdapter<T> {
