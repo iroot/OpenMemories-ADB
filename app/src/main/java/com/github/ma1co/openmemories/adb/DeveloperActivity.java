@@ -72,8 +72,6 @@ public class DeveloperActivity extends ItemActivity {
             }
         });
 
-        addLabel("Please disable Wifi before switching off the camera");
-
         addSwitch("Enable ADB", new SwitchItem.Adapter() {
             private String[] adbStartCommand = { getApplicationInfo().nativeLibraryDir + "/libadbd.so" };
 
