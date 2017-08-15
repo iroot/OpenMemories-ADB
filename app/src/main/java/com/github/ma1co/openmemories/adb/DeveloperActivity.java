@@ -25,7 +25,7 @@ public class DeveloperActivity extends ItemActivity {
         super.onCreate(savedInstanceState);
 
         connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         wifiSwitch = addSwitch("Enable Wifi", new SwitchItem.Adapter() {
             @Override
