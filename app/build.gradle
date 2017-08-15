@@ -7,7 +7,7 @@ android {
     buildToolsVersion '25.0.2'
 
     defaultConfig {
-        applicationId 'com.github.ma1co.openmemories.tweak'
+        applicationId 'com.github.ma1co.openmemories.adb'
         minSdkVersion 10
         targetSdkVersion 10
         versionCode "git -C ${projectDir} rev-list --first-parent --count HEAD".execute().text.trim().toInteger()
