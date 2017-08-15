@@ -8,7 +8,18 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application android:label="@string/app_name" android:icon="@drawable/adb_grey600_96x96">
-        <activity android:name=".DeveloperActivity" android:theme="android:style/Theme.Black.NoTitleBar">
+        <activity android:name=".DeveloperActivity" android:theme="@android:style/Theme.Black.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="com.sony.scalar.dlsys.scalaralauncher.DONT_FINISH_LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".SwitchAdb"
+            android:label="@string/adb_switch"
+            android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

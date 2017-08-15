@@ -38,3 +38,13 @@ android {
         exclude 'lib/armeabi/*.so'
     }
 }
+
+repositories {
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    provided 'com.github.ma1co.OpenMemories-Framework:stubs:-SNAPSHOT'
+    compile 'com.github.ma1co.OpenMemories-Framework:framework:-SNAPSHOT'
+}
