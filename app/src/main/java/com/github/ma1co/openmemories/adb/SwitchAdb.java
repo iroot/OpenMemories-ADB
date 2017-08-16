@@ -6,6 +6,8 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.sony.scalar.hardware.indicator.Light;
 
@@ -29,10 +31,14 @@ public class SwitchAdb extends Activity {
         pattern = enabled ? tunOn : turnOff;
 
         ((WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(enabled);
+
+        CharSequence toastText = "Error switch ADB";
         try {
             if (enabled) {
+                toastText = "ADB turn On";
                 Shell.execAndroid(TextUtils.join(" ", adbStartCommand) + " &");
             } else {
+                toastText = "ADB turn Off";
                 int pid = Procfs.findProcess(adbStartCommand);
                 if (Procfs.findProcess(adbStartCommand) != -1)
                     Shell.exec("kill -HUP " + pid);
@@ -40,6 +46,10 @@ public class SwitchAdb extends Activity {
         } catch (NativeException e) {
             e.printStackTrace();
         }
+
+        Toast toast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP, 0, 0);
+        toast.show();
 
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
